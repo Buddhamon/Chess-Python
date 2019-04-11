@@ -3,7 +3,7 @@ import sys
 sys.path.append('../Pieces')
 # import piece as PIECE
 import bishop as BISHOP
-sys.path.append('../BoardGame')
+sys.path.append('../BoardStuff')
 import board as BOARD
 
 
