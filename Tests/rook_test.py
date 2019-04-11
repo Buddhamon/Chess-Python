@@ -1,7 +1,6 @@
 # Imports
 import sys
 sys.path.append('../Pieces')
-# import piece as PIECE
 import rook as ROOK
 sys.path.append('../BoardStuff')
 import board as BOARD

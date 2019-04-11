@@ -16,7 +16,7 @@ class Bishop(PIECE.Piece):
         self.value = 3
 
     @staticmethod
-    def _bishop_move(r, c, up, left, board_height=8, board_width=8):
+    def _diagonal_move(r, c, up, left, board_height=8, board_width=8):
         move = []
         if up:
             r_direction = -1
@@ -39,16 +39,16 @@ class Bishop(PIECE.Piece):
         moves = []
 
         # Up Left
-        moves.append(self._bishop_move(row, col, up=True, left=True))
+        moves.append(self._diagonal_move(row, col, up=True, left=True))
 
         # Up Right
-        moves.append(self._bishop_move(row, col, up=True, left=False))
+        moves.append(self._diagonal_move(row, col, up=True, left=False))
 
         # Down Right
-        moves.append(self._bishop_move(row, col, up=False, left=False))
+        moves.append(self._diagonal_move(row, col, up=False, left=False))
 
         # Down Left
-        moves.append(self._bishop_move(row, col, up=False, left=True))
+        moves.append(self._diagonal_move(row, col, up=False, left=True))
 
         for m in reversed(moves):
             if len(m) == 0:
