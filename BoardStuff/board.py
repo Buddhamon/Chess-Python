@@ -12,23 +12,26 @@ import king as KING
 class Board:
 
     def __init__(self):
+        """Initialization of Board Object; Declaring Variables"""
         self.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         self.height = 8
         self.width = 8
         self.board = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
 
-
     def _convert_coordinates(self, chess_file, chess_rank):
+        """Converts Chess rank and file values to Array row and column values"""
         row = self.height - chess_rank
         col = self.alphabet.find(chess_file)
         return row, col
 
     def set_piece(self, piece, chess_file, chess_rank):
+        """Sets a piece on the Board"""
         row, col = self._convert_coordinates(chess_file, chess_rank)
         square = self.board[row][col]
         square.piece = piece
 
     def move_piece(self, color, cf1, cr1, cf2, cr2):
+        """Moves a Piece from the starting Chess Position to an end Chess Position"""
         row1, col1 = self._convert_coordinates(cf1, cr1)
         row2, col2 = self._convert_coordinates(cf2, cr2)
         valid = self.is_valid_move(color, row1, col1, row2, col2)
@@ -40,7 +43,7 @@ class Board:
         return valid
 
     def is_valid_move(self, color, row1, col1, row2, col2):
-
+        """Checks to see if move is valid"""
         # Check to see if rows or cols are outside bounds
         if row1 >= self.height or row1 < 0 or row2 >= self.height or row2 < 0:
             return False
@@ -51,31 +54,40 @@ class Board:
         if row1 == row2 and col1 == col2:
             return False
 
-        square1 = self.board[row1][col1]
+        start_square = self.board[row1][col1]
 
         # Check to see if selected piece is correct color
-        if square1.piece.color != color:
+        if start_square.piece.color != color:
             return False
 
+        # Gets all potentially available moves for the piece
+        moves = start_square.piece.get_valid_moves(row1, col1)
+
+        # Check to see if move is found in the available moves, also check if the
+        #       the path of the move is blocked
+        return self.is_path_blocked(moves, start_square, row2, col2)
+
+    def is_path_blocked(self, moves, start_square, row, col):
+        """Checks to see if move path has an obstruction"""
         valid = False
-        moves = square1.piece.get_valid_moves(row1, col1)
         for m in moves:
-            if [row2, col2] in m:
+            if [row, col] in m:
                 valid = True
-                index = m.index([row2, col2])
+                index = m.index([row, col])
                 for i in range(index+1):
                     r = m[i][0]
                     c = m[i][1]
-                    square2 = self.board[r][c]
+                    end_square = self.board[r][c]
                     if i == index:
-                        if square1.piece.color == square2.piece.color:
+                        if start_square.piece.color == end_square.piece.color:
                             valid = False
                     else:
-                        if square2.has_piece():
+                        if end_square.has_piece():
                             valid = False
         return valid
 
     def set_standard_board(self):
+        """Sets the Board with the standard Chess Opening"""
         white = 'white'
         black = 'black'
 
@@ -112,6 +124,7 @@ class Board:
         self.set_piece(KING.King(black), 'E', 8)
 
     def print_board(self):
+        """Prints a String visualization of the Board"""
         file_header = '      '
         for i in range(8):
             file_header += self.alphabet[i] + '    '
