@@ -15,8 +15,6 @@ class Pawn(PIECE.Piece):
         requires_board_state = True
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-        self.first_move = True
-
     def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
 
         moves = []
@@ -27,47 +25,42 @@ class Pawn(PIECE.Piece):
         else:
             pawn_direction = 1
 
+        # Attacking Moves ...but not En Passant? Should this occur in chess.py since it is a unique rule?
+        if col-1 >= 0:
+            square = board[row + pawn_direction][col-1]
+            if square.piece.color != 'null' and square.piece.color != self.color:
+                moves.append([[row + pawn_direction, col-1]])
+        if col+1 < board_width:
+            square = board[row + pawn_direction][col+1]
+            if square.piece.color != 'null' and square.piece.color != self.color:
+                moves.append([[row + pawn_direction, col+1]])
 
-        # ERROR. Must check to see if this is a valid position first!
+        # Non-attacking Moves
+        if self.first_move:
+            square = board[row + 2*pawn_direction][col]
+            if square.piece.color == 'null':
+                moves.append([[row + pawn_direction, col], [row + 2*pawn_direction, col]])
+        else:
+            square = board[row + pawn_direction][col]
+            if square.piece.color == 'null':
+                moves.append([[row + pawn_direction, col], [row + pawn_direction, col]])
 
-        # Attacking Moves ((Diagonal) ...& En Passant?)
-        # if board[row + pawn_direction][col-1].piece.color != self.color:
-        #
-        # moves.append([[row + pawn_direction, col-1], [row + pawn_direction, col+1]])
-        #
-        # # Non-attacking Moves
-        # if self.first_move:
-        #     moves.append([[row + pawn_direction, col], [row + 2*pawn_direction, col]])
-        # else:
-        #     moves.append([[row + pawn_direction, col]])
-
-
-
-
-        # for m in reversed(moves):
-        #     r = m[0][0]
-        #     c = m[0][1]
-        #     if r >= board_height or r < 0 or c >= board_width or c < 0:
-        #         index = moves.index(m)
-        #         moves.pop(index)
-        #
-        #
+        for m in reversed(moves):
+            r = m[0][0]
+            c = m[0][1]
+            if r >= board_height or r < 0 or c >= board_width or c < 0:
+                index = moves.index(m)
+                moves.pop(index)
         return moves
 
 if __name__ == '__main__':
-    board = BOARD.Board()
-    p = Pawn('black')
-    print(p.color, p.name, p.value)
-    print('For:', 0, 0)
-    for move in p.get_valid_moves(0, 0, board):
-        print('Move:', move)
+    b = BOARD.Board()
+    b = b.board
+    p1 = Pawn('black')
+    print(p1.color, p1.name, p1.value)
     print('For:', 1, 1)
-    for move in p.get_valid_moves(1, 1, board):
+    for move in p1.get_valid_moves(1, 1, b):
         print('Move:', move)
-    print('For:', 4, 4)
-    for move in p.get_valid_moves(4, 4, board):
+    print('For:', 1, 6)
+    for move in p1.get_valid_moves(1, 6, b):
         print('Move:', move)
-    print('For:', 8, 8)
-    for move in p.get_valid_moves(7, 7, board):
-        print('Move:', move)
-

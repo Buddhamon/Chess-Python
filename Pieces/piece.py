@@ -7,6 +7,7 @@ class Piece():
         self.symbol = '  '
         self.value = 0
         self.requires_board_state = False
+        self.first_move = True
 
         # Define Class Variables
     def declare_variables(self, color, name, symbol_char, value, rbs):
@@ -21,6 +22,7 @@ class Piece():
             0/0 # Error Terminates Program
         self.value = value
         self.requires_board_state = rbs
+        self.first_move = True
 
     def copy(self):
         p = Piece()

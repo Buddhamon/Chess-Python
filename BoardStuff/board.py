@@ -52,6 +52,7 @@ class Board:
             start_square = self.board[row1][col1]
             end_square = self.board[row2][col2]
             end_square.piece = start_square.piece
+            end_square.piece.first_move = False
             start_square.piece = PIECE.Piece()
         return valid
 
