@@ -31,15 +31,15 @@ class Pawn(PIECE.Piece):
         # ERROR. Must check to see if this is a valid position first!
 
         # Attacking Moves ((Diagonal) ...& En Passant?)
-        if board[row + pawn_direction][col-1].piece.color != self.color:
-
-        moves.append([[row + pawn_direction, col-1], [row + pawn_direction, col+1]])
-
-        # Non-attacking Moves
-        if self.first_move:
-            moves.append([[row + pawn_direction, col], [row + 2*pawn_direction, col]])
-        else:
-            moves.append([[row + pawn_direction, col]])
+        # if board[row + pawn_direction][col-1].piece.color != self.color:
+        #
+        # moves.append([[row + pawn_direction, col-1], [row + pawn_direction, col+1]])
+        #
+        # # Non-attacking Moves
+        # if self.first_move:
+        #     moves.append([[row + pawn_direction, col], [row + 2*pawn_direction, col]])
+        # else:
+        #     moves.append([[row + pawn_direction, col]])
 
 
 
