@@ -5,16 +5,11 @@ class Queen(PIECE.Piece):
 
     # Define Class Variables
     def __init__(self, color):
-        self.color = color
-        self.name = 'Queen'
-        if color == 'black':
-            self.symbol = 'bq'
-        elif color == 'white':
-            self.symbol = 'wq'
-        else:
-            print('Color is not known')
-            0/0 # Error Terminates Program
-        self.value = 9
+        name = 'Queen'
+        symbol_char = 'q'
+        value = 9
+        requires_board_state = False
+        super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
     def get_valid_moves(self, row, col, board_height=8, board_width=8):
 

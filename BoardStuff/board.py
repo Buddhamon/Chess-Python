@@ -17,12 +17,21 @@ class Board:
         self.height = 8
         self.width = 8
         self.board = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
+        self.history = []
 
     def _convert_coordinates(self, chess_file, chess_rank):
         """Converts Chess rank and file values to Array row and column values"""
         row = self.height - chess_rank
         col = self.alphabet.find(chess_file)
         return row, col
+
+    def copy_board(self):
+        """Creates and returns a copy of the board; called after every move"""
+        b = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
+        for r in range(self.width):
+            for c in range(self.height):
+                b[r][c] = self.board[r][c].copy()
+        return b
 
     def set_piece(self, piece, chess_file, chess_rank):
         """Sets a piece on the Board"""
@@ -36,10 +45,14 @@ class Board:
         row2, col2 = self._convert_coordinates(cf2, cr2)
         valid = self.is_valid_move(color, row1, col1, row2, col2)
         if valid:
-            square1 = self.board[row1][col1]
-            square2 = self.board[row2][col2]
-            square2.piece = square1.piece
-            square1.piece = PIECE.Piece()
+            # Add the previous position to history
+            self.history.append(self.copy_board())
+
+            # swap pieces
+            start_square = self.board[row1][col1]
+            end_square = self.board[row2][col2]
+            end_square.piece = start_square.piece
+            start_square.piece = PIECE.Piece()
         return valid
 
     def is_valid_move(self, color, row1, col1, row2, col2):
@@ -60,8 +73,11 @@ class Board:
         if start_square.piece.color != color:
             return False
 
-        # Gets all potentially available moves for the piece
-        moves = start_square.piece.get_valid_moves(row1, col1)
+        # Gets all potentially available moves for the piece; checks if piece requires board_state
+        if start_square.piece.requires_board_state:
+            moves = start_square.piece.get_valid_moves(row1, col1, self.board)
+        else:
+            moves = start_square.piece.get_valid_moves(row1, col1)
 
         # Check to see if move is found in the available moves, also check if the
         #       the path of the move is blocked

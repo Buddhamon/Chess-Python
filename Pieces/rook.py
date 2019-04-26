@@ -4,16 +4,11 @@ class Rook(PIECE.Piece):
 
     # Define Class Variables
     def __init__(self, color):
-        self.color = color
-        self.name = 'Rook'
-        if color == 'black':
-            self.symbol = 'br'
-        elif color == 'white':
-            self.symbol = 'wr'
-        else:
-            print('Color is not known')
-            0/0 # Error Terminates Program
-        self.value = 5
+        name = 'Rook'
+        symbol_char = 'r'
+        value = 5
+        requires_board_state = False
+        super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
     def get_valid_moves(self, row, col, board_height=8, board_width=8):
 

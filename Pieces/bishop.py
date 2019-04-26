@@ -4,16 +4,11 @@ class Bishop(PIECE.Piece):
 
     # Define Class Variables
     def __init__(self, color):
-        self.color = color
-        self.name = 'Bishop'
-        if color == 'black':
-            self.symbol = 'bb'
-        elif color == 'white':
-            self.symbol = 'wb'
-        else:
-            print('Color is not known')
-            0/0 # Error Terminates Program
-        self.value = 3
+        name = 'Bishop'
+        symbol_char = 'b'
+        value = 3
+        requires_board_state = False
+        super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
     @staticmethod
     def _diagonal_move(r, c, up, left, board_height=8, board_width=8):

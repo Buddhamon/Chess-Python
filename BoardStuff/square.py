@@ -10,6 +10,14 @@ class Square:
         self.file = 0
         self.piece = PIECE.Piece()
 
+    def copy(self):
+        s = Square()
+        s.color = self.color
+        s.rank = self.rank
+        s.file = self.file
+        s.piece = self.piece.copy()
+        return s
+
     def has_piece(self):
         if self.piece.name == 'null piece':
             return False
