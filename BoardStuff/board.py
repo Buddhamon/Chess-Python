@@ -39,6 +39,19 @@ class Board:
         square = self.board[row][col]
         square.piece = piece
 
+    def make_move(self, color, move):
+        """Checks to see if move is valid and then performs valid move"""
+        try:
+            cf1 = move[0]
+            cr1 = move[1]
+            cf2 = move[2]
+            cr2 = move[3]
+
+            return self.move_piece(color, cf1, cr1, cf2, cr2)
+        except:
+            return False
+
+
     def move_piece(self, color, cf1, cr1, cf2, cr2):
         """Moves a Piece from the starting Chess Position to an end Chess Position"""
         row1, col1 = self._convert_coordinates(cf1, cr1)
@@ -48,7 +61,7 @@ class Board:
             # Add the previous position to history
             self.history.append(self.copy_board())
 
-            # swap pieces
+            # Swap pieces
             start_square = self.board[row1][col1]
             end_square = self.board[row2][col2]
             end_square.piece = start_square.piece
@@ -166,4 +179,6 @@ if __name__ == '__main__':
     b = Board()
     b.print_board()
     b.set_standard_board()
+    b.print_board()
+    print(b.move_piece(white, 'A', 2, 'A', 4))
     b.print_board()

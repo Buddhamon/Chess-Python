@@ -31,10 +31,11 @@ class Piece():
         p.symbol = self.symbol
         p.value = self.value
         p.requires_board_state = self.requires_board_state
+        p.first_move = self.first_move
         return p
 
-    # def get_valid_moves(self, row, col, board_height=8, board_width=8):
-    #     pass
+    def get_valid_moves(self, row, col, board_height=8, board_width=8):
+        pass
 
 if __name__ == '__main__':
     p = Piece()
