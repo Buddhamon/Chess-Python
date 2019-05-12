@@ -18,7 +18,7 @@ import bishop as BISHOP
 import queen as QUEEN
 import king as KING
 
-class Chess():
+class Chess:
 
     def __init__(self):
         """Initialization for Chess Object"""
@@ -36,7 +36,7 @@ class Chess():
 
         # Declare players
         self.white_player = AI_RANDOM.AI_Random('white')
-        self.black_player = AI_RANDOM.AI_Random('black')
+        self.black_player = HUMAN.Human('black')
 
         # Other
         self.white_turn = True
