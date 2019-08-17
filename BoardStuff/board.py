@@ -59,7 +59,7 @@ class Board:
         valid = self.is_valid_move(color, row1, col1, row2, col2)
         if valid:
             # Add the previous position to history
-            self.history.append(self.copy_board())
+            self.history.append(self.copy_board()) ######## This will need to be changed later on
 
             # Swap pieces
             start_square = self.board[row1][col1]
@@ -153,7 +153,7 @@ class Board:
         self.set_piece(KING.King(white), 'E', 1)
         self.set_piece(KING.King(black), 'E', 8)
 
-    def print_board(self):
+    def print_board(self, move_count=None):
         """Prints a String visualization of the Board"""
         file_header = '      '
         for i in range(8):
@@ -166,7 +166,11 @@ class Board:
                 square = self.board[r][c]
                 symbol = square.piece.symbol
                 line += ' ' + symbol + ' |'
-            print(line)
+            if r != int((self.height-1)/2) or move_count is None:
+                print(line)
+            else:
+                print(line, end='')
+                print('      Move: ' + str(move_count))
             print('    -----------------------------------------')
         print('\n')
 
@@ -181,4 +185,4 @@ if __name__ == '__main__':
     b.set_standard_board()
     b.print_board()
     print(b.move_piece(white, 'A', 2, 'A', 4))
-    b.print_board()
+    b.print_board(1)

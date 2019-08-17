@@ -7,10 +7,10 @@ class King(PIECE.Piece):
         name = 'King'
         symbol_char = 'k'
         value = 1000
-        requires_board_state = False
+        requires_board_state = True
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-    def get_valid_moves(self, row, col, board_height=8, board_width=8):
+    def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
 
         moves = []
 

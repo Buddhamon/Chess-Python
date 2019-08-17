@@ -35,15 +35,22 @@ class Chess:
         self.insufficient_material = False
 
         # Declare players
-        self.white_player = AI_RANDOM.AI_Random('white')
-        self.black_player = HUMAN.Human('black')
+        self.white_player = None
+        self.black_player = None
 
         # Other
         self.white_turn = True
 
+    def setup_game(self):
+        """Setup players and rules for Chess Game"""
+        # Redeclare players
+        self.white_player = AI_RANDOM.AI_Random('white')
+        self.black_player = AI_RANDOM.AI_Random('black')
+
     def begin_game(self):
         """Game Loop for Chess Game"""
 
+        move_count = 1
         self.chess_board.print_board()
         while not self.checkmate:
 
@@ -63,11 +70,13 @@ class Chess:
             else:
                 self.white_turn = True
 
-            self.chess_board.print_board()
+            self.chess_board.print_board(move_count)
+            move_count += 1
 
         # Return winner
 
 # Run Game
 if __name__ == '__main__':
     chess_game = Chess()
+    chess_game.setup_game()
     chess_game.begin_game()
