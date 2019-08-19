@@ -44,6 +44,7 @@ class Chess:
     def setup_game(self):
         """Setup players and rules for Chess Game"""
         # Redeclare players
+        # self.white_player = HUMAN.Human('white')
         self.white_player = AI_RANDOM.AI_Random('white')
         self.black_player = AI_RANDOM.AI_Random('black')
 

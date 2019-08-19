@@ -34,7 +34,7 @@ class Piece():
         p.first_move = self.first_move
         return p
 
-    def get_valid_moves(self, row, col, board_height=8, board_width=8):
+    def get_valid_coordinates(self, row, col, board_height=8, board_width=8):
         pass
 
 if __name__ == '__main__':
