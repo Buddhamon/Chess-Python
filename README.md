@@ -1,6 +1,6 @@
 # Chess-Python
 
-An Example .README
+An Example .README; a later version will be available soon.
 
 ## Getting Started
 
