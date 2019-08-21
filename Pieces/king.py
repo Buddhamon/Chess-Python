@@ -1,5 +1,11 @@
+# Imports
+import sys
 import piece as PIECE
+sys.path.append('../BoardStuff')
+import move as MOVE
 
+
+# King Object
 class King(PIECE.Piece):
 
     # Define Class Variables
@@ -12,54 +18,65 @@ class King(PIECE.Piece):
 
     def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
 
-        moves = []
+        routes = []
 
         # Up Left
-        moves.append([[row-1, col-1]])
+        routes.append([[row-1, col-1]])
 
         # Up Right
-        moves.append([[row-1, col+1]])
+        routes.append([[row-1, col+1]])
 
         # Down Right
-        moves.append([[row+1, col+1]])
+        routes.append([[row+1, col+1]])
 
         # Down Left
-        moves.append([[row+1, col-1]])
+        routes.append([[row+1, col-1]])
 
         # Up
-        moves.append([[row-1, col]])
+        routes.append([[row-1, col]])
 
         # Down
-        moves.append([[row+1, col]])
+        routes.append([[row+1, col]])
 
         # Left
-        moves.append([[row, col-1]])
+        routes.append([[row, col-1]])
 
         # Right
-        moves.append([[row, col+1]])
+        routes.append([[row, col+1]])
 
-        for m in reversed(moves):
-            r = m[0][0]
-            c = m[0][1]
+        for route in reversed(routes):
+            r = route[0][0]
+            c = route[0][1]
             if r >= board_height or r < 0 or c >= board_width or c < 0:
-                index = moves.index(m)
-                moves.pop(index)
-        return moves
+                index = routes.index(route)
+                routes.pop(index)
+
+        origin = [row, col]
+        return MOVE.Move.generate_moves(origin, routes)
 
 
+# King Test
 if __name__ == '__main__':
     p = King('black')
     print(p.color, p.name, p.value)
+
+    print('\n---------------------------------------------------')
     print('For:', 0, 0)
     for move in p.get_valid_moves(0, 0, board=None):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 1, 1)
     for move in p.get_valid_moves(1, 1, board=None):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 4, 4)
     for move in p.get_valid_moves(4, 4, board=None):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 8, 8)
     for move in p.get_valid_moves(7, 7, board=None):
-        print('Move:', move)
+        move.print_move()
 

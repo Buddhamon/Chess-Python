@@ -1,11 +1,11 @@
 # Imports
 import sys
-
 import piece as PIECE
-
 sys.path.append('../BoardStuff')
 import move as MOVE
 
+
+# Rook Object
 class Rook(PIECE.Piece):
 
     # Define Class Variables
@@ -38,23 +38,31 @@ class Rook(PIECE.Piece):
                 routes.pop(index)
 
         origin = [row, col]
-        # return MOVE.generate_moves(origin, routes)
-        return routes
+        return MOVE.Move.generate_moves(origin, routes)
 
 
+# Rook Test
 if __name__ == '__main__':
     p = Rook('black')
     print(p.color, p.name, p.value)
+
+    print('\n---------------------------------------------------')
     print('For:', 0, 0)
     for move in p.get_valid_moves(0, 0):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 1, 1)
     for move in p.get_valid_moves(1, 1):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 4, 4)
     for move in p.get_valid_moves(4, 4):
-        print('Move:', move)
+        move.print_move()
+
+    print('\n---------------------------------------------------')
     print('For:', 8, 8)
     for move in p.get_valid_moves(7, 7):
-        print('Move:', move)
+        move.print_move()
 
