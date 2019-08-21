@@ -10,7 +10,7 @@ class King(PIECE.Piece):
         requires_board_state = True
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-    def get_valid_coordinates(self, row, col, board, board_height=8, board_width=8):
+    def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
 
         moves = []
 
@@ -51,15 +51,15 @@ if __name__ == '__main__':
     p = King('black')
     print(p.color, p.name, p.value)
     print('For:', 0, 0)
-    for move in p.get_valid_coordinates(0, 0, board=None):
+    for move in p.get_valid_moves(0, 0, board=None):
         print('Move:', move)
     print('For:', 1, 1)
-    for move in p.get_valid_coordinates(1, 1, board=None):
+    for move in p.get_valid_moves(1, 1, board=None):
         print('Move:', move)
     print('For:', 4, 4)
-    for move in p.get_valid_coordinates(4, 4, board=None):
+    for move in p.get_valid_moves(4, 4, board=None):
         print('Move:', move)
     print('For:', 8, 8)
-    for move in p.get_valid_coordinates(7, 7, board=None):
+    for move in p.get_valid_moves(7, 7, board=None):
         print('Move:', move)
 

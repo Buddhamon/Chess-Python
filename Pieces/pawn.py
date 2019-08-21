@@ -15,7 +15,7 @@ class Pawn(PIECE.Piece):
         requires_board_state = True
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-    def get_valid_coordinates(self, row, col, board, board_height=8, board_width=8):
+    def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
 
         moves = []
 
@@ -59,8 +59,8 @@ if __name__ == '__main__':
     p1 = Pawn('black')
     print(p1.color, p1.name, p1.value)
     print('For:', 1, 1)
-    for move in p1.get_valid_coordinates(1, 1, b):
+    for move in p1.get_valid_moves(1, 1, b):
         print('Move:', move)
     print('For:', 1, 6)
-    for move in p1.get_valid_coordinates(1, 6, b):
+    for move in p1.get_valid_moves(1, 6, b):
         print('Move:', move)

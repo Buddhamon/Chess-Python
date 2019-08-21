@@ -91,9 +91,9 @@ class Board:
 
         # Gets all potentially available moves for the piece; checks if piece requires board_state
         if start_square.piece.requires_board_state:
-            moves = start_square.piece.get_valid_coordinates(row1, col1, self.board)
+            moves = start_square.piece.get_valid_moves(row1, col1, self.board)
         else:
-            moves = start_square.piece.get_valid_coordinates(row1, col1)
+            moves = start_square.piece.get_valid_moves(row1, col1)
 
         # Check to see if move is found in the available moves, also check if the
         #       the path of the move is blocked
