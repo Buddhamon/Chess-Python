@@ -1,5 +1,11 @@
-import player as PLAYER
+# Imports
+import sys
 from random import randint
+
+import player as PLAYER
+
+sys.path.append('../BoardStuff')
+import move as MOVE
 
 class AI_Random(PLAYER.Player):
 
@@ -13,4 +19,6 @@ class AI_Random(PLAYER.Player):
         cf2 = alphabet[randint(0, 7)]
         cr2 = randint(1, 8)
 
-        return [cf1, cr1, cf2, cr2]
+        ai_move = MOVE.Move(starting=[cf1, cr1], attacking=[cf2, cr2])
+
+        return ai_move

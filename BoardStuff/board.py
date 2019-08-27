@@ -1,5 +1,7 @@
 import sys
 import square as SQUARE
+import move as MOVE
+
 sys.path.append('../Pieces')
 import piece as PIECE
 import pawn as PAWN
@@ -40,12 +42,12 @@ class Board:
         square.piece = piece
 
     def make_move(self, color, move):
-        """Checks to see if move is valid and then performs valid move"""
+        """Checks to see if Move is valid and then performs valid Move"""
         try:
-            cf1 = move[0]
-            cr1 = move[1]
-            cf2 = move[2]
-            cr2 = move[3]
+            cf1 = move.start_coordinate[0]
+            cr1 = move.start_coordinate[1]
+            cf2 = move.attack_coordinate[0]
+            cr2 = move.attack_coordinate[1]
 
             return self.move_piece(color, cf1, cr1, cf2, cr2)
         except:
@@ -64,7 +66,7 @@ class Board:
             # Swap pieces
             start_square = self.board[row1][col1]
             end_square = self.board[row2][col2]
-            end_square.piece = start_square.piece
+            end_square.piece = start_square.piece ######## This will need to flag for captured piece
             end_square.piece.first_move = False
             start_square.piece = PIECE.Piece()
         return valid
@@ -81,39 +83,40 @@ class Board:
         if row1 == row2 and col1 == col2:
             return False
 
-        start_square = self.board[row1][col1]
+        start_square_piece = self.board[row1][col1].piece
+        end_square_piece = self.board[row2][col2].piece
 
         # Check to see if selected piece is correct color
-        if start_square.piece.color != color:
+        if start_square_piece.color != color:
+            return False
+
+        # Check to see if target square's piece is not the same as the correct color
+        if end_square_piece.color == color:
             return False
 
         # Gets all potentially available moves for the piece; checks if piece requires board_state
-        if start_square.piece.requires_board_state:
-            moves = start_square.piece.get_valid_moves(row1, col1, self.board)
+        if start_square_piece.requires_board_state:
+            moves = start_square_piece.get_valid_moves(row1, col1, self.board)
         else:
-            moves = start_square.piece.get_valid_moves(row1, col1)
+            moves = start_square_piece.get_valid_moves(row1, col1)
 
         # Check to see if move is found in the available moves, also check if the
         #       the path of the move is blocked
-        return self.is_path_blocked(moves, start_square, row2, col2)
+        return self.is_path_blocked(start_square_piece, row2, col2, moves)
 
-    def is_path_blocked(self, moves, start_square, row, col):
+    def is_path_blocked(self, start_square_piece, row, col, moves):
         """Checks to see if move path has an obstruction"""
+        attack_coordinate = [row, col]
         valid = False
         for m in moves:
-            if [row, col] in m:
+            if attack_coordinate == m.attack_coordinate:
                 valid = True
-                index = m.index([row, col])
-                for i in range(index+1):
-                    r = m[i][0]
-                    c = m[i][1]
-                    end_square = self.board[r][c]
-                    if i == index:
-                        if start_square.piece.color == end_square.piece.color:
-                            valid = False
-                    else:
-                        if end_square.has_piece():
-                            valid = False
+                for coordinate in m.pass_coordinates:
+                    r = coordinate[0]
+                    c = coordinate[1]
+                    pass_square = self.board[r][c]
+                    if pass_square.has_piece():
+                        valid = False
         return valid
 
     def set_standard_board(self):
