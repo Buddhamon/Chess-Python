@@ -13,6 +13,22 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
+#   True Board
+b_true.set_piece(PAWN.Pawn(black), 'B', 7)
+b_true.set_piece(PAWN.Pawn(black), 'C', 7)
+b_true.set_piece(PAWN.Pawn(black), 'D', 7)
+b_true.set_piece(PAWN.Pawn(black), 'F', 7)
+b_true.set_piece(PAWN.Pawn(black), 'G', 7)
+b_true.set_piece(PAWN.Pawn(black), 'H', 7)
+b_true.set_piece(PAWN.Pawn(black), 'A', 5)
+b_true.set_piece(PAWN.Pawn(white), 'E', 4)
+b_true.set_piece(PAWN.Pawn(white), 'F', 4)
+b_true.set_piece(PAWN.Pawn(white), 'H', 4)
+b_true.set_piece(PAWN.Pawn(white), 'F', 3)
+b_true.set_piece(PAWN.Pawn(white), 'A', 2)
+b_true.set_piece(PAWN.Pawn(black), 'B', 2)
+
+#   Test Board
 b_test.set_piece(PAWN.Pawn(white), 'A', 2)
 b_test.set_piece(PAWN.Pawn(white), 'B', 2)
 b_test.set_piece(PAWN.Pawn(white), 'C', 2)
@@ -33,22 +49,8 @@ b_test.set_piece(PAWN.Pawn(black), 'F', 4)
 b_test.set_piece(PAWN.Pawn(black), 'F', 3)
 b_test.set_piece(PAWN.Pawn(black), 'G', 3)
 
-b_true.set_piece(PAWN.Pawn(black), 'B', 7)
-b_true.set_piece(PAWN.Pawn(black), 'C', 7)
-b_true.set_piece(PAWN.Pawn(black), 'D', 7)
-b_true.set_piece(PAWN.Pawn(black), 'F', 7)
-b_true.set_piece(PAWN.Pawn(black), 'G', 7)
-b_true.set_piece(PAWN.Pawn(black), 'H', 7)
-b_true.set_piece(PAWN.Pawn(black), 'A', 5)
-b_true.set_piece(PAWN.Pawn(white), 'E', 4)
-b_true.set_piece(PAWN.Pawn(white), 'F', 4)
-b_true.set_piece(PAWN.Pawn(white), 'H', 4)
-b_true.set_piece(PAWN.Pawn(white), 'F', 3)
-b_true.set_piece(PAWN.Pawn(white), 'A', 2)
-b_true.set_piece(PAWN.Pawn(black), 'B', 2)
 
 # Test
-
 true_values = []
 test_values = []
 

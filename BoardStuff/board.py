@@ -100,23 +100,23 @@ class Board:
         else:
             moves = start_square_piece.get_valid_moves(row1, col1)
 
-        # Check to see if move is found in the available moves, also check if the
+        # Check to see if move is found in the available moves, then checks if the
         #       the path of the move is blocked
-        return self.is_path_blocked(start_square_piece, row2, col2, moves)
+        attack_coordinate = [row2, col2]
+        for move in moves:
+            if attack_coordinate == move.attack_coordinate:
+                return self.is_move_blocked(move)
+        return False
 
-    def is_path_blocked(self, start_square_piece, row, col, moves):
-        """Checks to see if move path has an obstruction"""
-        attack_coordinate = [row, col]
-        valid = False
-        for m in moves:
-            if attack_coordinate == m.attack_coordinate:
-                valid = True
-                for coordinate in m.pass_coordinates:
-                    r = coordinate[0]
-                    c = coordinate[1]
-                    pass_square = self.board[r][c]
-                    if pass_square.has_piece():
-                        valid = False
+    def is_move_blocked(self, move):
+        """Checks to see if move path has an obstruction or is blocked"""
+        valid = True
+        for coordinate in move.pass_coordinates:
+            r = coordinate[0]
+            c = coordinate[1]
+            pass_square = self.board[r][c]
+            if pass_square.has_piece():
+                valid = False
         return valid
 
     def set_standard_board(self):

@@ -13,7 +13,25 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
-    # Test
+#   True Board
+b_true.set_piece(KNIGHT.Knight(black), 'B', 6)
+b_true.set_piece(KNIGHT.Knight(black), 'G', 3)
+b_true.set_piece(KNIGHT.Knight(white), 'E', 5)  # Selected Knight
+b_true.set_piece(KNIGHT.Knight(white), 'E', 6)
+b_true.set_piece(KNIGHT.Knight(white), 'E', 4)
+b_true.set_piece(KNIGHT.Knight(white), 'D', 5)
+b_true.set_piece(KNIGHT.Knight(white), 'F', 5)
+b_true.set_piece(KNIGHT.Knight(white), 'E', 7)
+b_true.set_piece(KNIGHT.Knight(white), 'E', 3)
+b_true.set_piece(KNIGHT.Knight(white), 'C', 5)
+b_true.set_piece(KNIGHT.Knight(white), 'G', 5)
+b_true.set_piece(KNIGHT.Knight(white), 'D', 6)
+b_true.set_piece(KNIGHT.Knight(white), 'F', 6)
+b_true.set_piece(KNIGHT.Knight(white), 'D', 4)
+b_true.set_piece(KNIGHT.Knight(white), 'F', 4)
+b_true.set_piece(KNIGHT.Knight(white), 'C', 4)
+
+#   Test Board
 b_test.set_piece(KNIGHT.Knight(black), 'A', 8)
 b_test.set_piece(KNIGHT.Knight(black), 'H', 1)
 b_test.set_piece(KNIGHT.Knight(white), 'E', 5)  # Selected Knight
@@ -35,26 +53,8 @@ b_test.set_piece(KNIGHT.Knight(black), 'F', 7)
 b_test.set_piece(KNIGHT.Knight(black), 'G', 6)
 b_test.set_piece(KNIGHT.Knight(white), 'C', 4)
 
-    # True
-b_true.set_piece(KNIGHT.Knight(black), 'B', 6)
-b_true.set_piece(KNIGHT.Knight(black), 'G', 3)
-b_true.set_piece(KNIGHT.Knight(white), 'E', 5)  # Selected Knight
-b_true.set_piece(KNIGHT.Knight(white), 'E', 6)
-b_true.set_piece(KNIGHT.Knight(white), 'E', 4)
-b_true.set_piece(KNIGHT.Knight(white), 'D', 5)
-b_true.set_piece(KNIGHT.Knight(white), 'F', 5)
-b_true.set_piece(KNIGHT.Knight(white), 'E', 7)
-b_true.set_piece(KNIGHT.Knight(white), 'E', 3)
-b_true.set_piece(KNIGHT.Knight(white), 'C', 5)
-b_true.set_piece(KNIGHT.Knight(white), 'G', 5)
-b_true.set_piece(KNIGHT.Knight(white), 'D', 6)
-b_true.set_piece(KNIGHT.Knight(white), 'F', 6)
-b_true.set_piece(KNIGHT.Knight(white), 'D', 4)
-b_true.set_piece(KNIGHT.Knight(white), 'F', 4)
-b_true.set_piece(KNIGHT.Knight(white), 'C', 4)
 
 # Test
-
 true_values = []
 test_values = []
 

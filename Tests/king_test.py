@@ -2,6 +2,7 @@
 import sys
 sys.path.append('../Pieces')
 import king as KING
+import rook as ROOK
 sys.path.append('../BoardStuff')
 import board as BOARD
 
@@ -13,22 +14,25 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
+#   True Board
+b_true.set_piece(KING.King(white), 'H', 8)
+b_true.set_piece(KING.King(white), 'A', 8)
+b_true.set_piece(KING.King(white), 'C', 6)
+b_true.set_piece(KING.King(white), 'H', 2)
+
+#   Test Board
 b_test.set_piece(KING.King(white), 'A', 8)
 b_test.set_piece(KING.King(white), 'A', 3)
 b_test.set_piece(KING.King(white), 'D', 6)
 b_test.set_piece(KING.King(black), 'A', 1)
 b_test.set_piece(KING.King(white), 'H', 1)
 
-b_true.set_piece(KING.King(white), 'H', 8)
-b_true.set_piece(KING.King(white), 'A', 8)
-b_true.set_piece(KING.King(white), 'C', 6)
-b_true.set_piece(KING.King(white), 'H', 2)
 
 # Test
 true_values = []
 test_values = []
 
-
+# Movement Test
 test_values.append(b_test.move_piece(white, 'A', 8, 'B', 8))  # Move 1
 true_values.append(True)
 test_values.append(b_test.move_piece(white, 'B', 8, 'A', 8))  # Move 2
@@ -75,6 +79,11 @@ test_values.append(b_test.move_piece(white, 'B', 6, 'C', 6))  # Move 22
 true_values.append(True)
 test_values.append(b_test.move_piece(white, 'H', 1, 'H', 2))  # Move 22
 true_values.append(True)
+
+# Castling Test
+
+# Checking Test
+
 
 print('-------------------- TRUE ---------------------\n')
 b_true.print_board()

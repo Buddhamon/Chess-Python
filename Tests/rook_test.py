@@ -13,16 +13,18 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
+#   True Board
+b_true.set_piece(ROOK.Rook(white), 'E', 7)
+b_true.set_piece(ROOK.Rook(white), 'H', 8)
+
+#   Test Board
 b_test.set_piece(ROOK.Rook(white), 'A', 1)
 b_test.set_piece(ROOK.Rook(black), 'H', 1)
 b_test.set_piece(ROOK.Rook(black), 'A', 8)
 b_test.set_piece(ROOK.Rook(white), 'H', 8)
 
-b_true.set_piece(ROOK.Rook(white), 'E', 7)
-b_true.set_piece(ROOK.Rook(white), 'H', 8)
 
 # Test
-
 true_values = []
 test_values = []
 

@@ -13,17 +13,18 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
+#   True Board
+b_true.set_piece(QUEEN.Queen(white), 'F', 7)
+
+#   Test Board
 b_test.set_piece(QUEEN.Queen(white), 'E', 5)
 b_test.set_piece(QUEEN.Queen(black), 'A', 2)
 b_test.set_piece(QUEEN.Queen(black), 'H', 7)
 
-b_true.set_piece(QUEEN.Queen(white), 'F', 7)
 
 # Test
-
 true_values = []
 test_values = []
-
 
 test_values.append(b_test.move_piece(white, 'E', 5, 'B', 8))  # Move 1
 true_values.append(True)

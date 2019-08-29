@@ -44,6 +44,12 @@ class King(PIECE.Piece):
         # Right
         routes.append([[row, col+1]])
 
+        # Castle King Side
+        # if self.color == 'white':
+        #     board[7][7]
+
+        # Castle Queen Side
+
         for route in reversed(routes):
             r = route[0][0]
             c = route[0][1]

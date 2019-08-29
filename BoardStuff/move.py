@@ -8,6 +8,7 @@ class Move:
         self.start_coordinate = starting
         self.attack_coordinate = attacking
         self.pass_coordinates = []
+        # self.special_move = False
 
     @staticmethod
     def generate_moves(origin, routes):

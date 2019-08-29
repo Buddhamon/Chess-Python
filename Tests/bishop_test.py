@@ -13,6 +13,13 @@ b_true = BOARD.Board()
 b_test = BOARD.Board()
 
 # Set Boards
+#   True Board
+b_true.set_piece(BISHOP.Bishop(white), 'A', 8)
+b_true.set_piece(BISHOP.Bishop(black), 'B', 1)
+b_true.set_piece(BISHOP.Bishop(white), 'H', 7)
+b_true.set_piece(BISHOP.Bishop(black), 'F', 7)
+
+#   Test Board
 b_test.set_piece(BISHOP.Bishop(white), 'D', 5)
 b_test.set_piece(BISHOP.Bishop(black), 'C', 6)
 b_test.set_piece(BISHOP.Bishop(black), 'H', 1)
@@ -22,13 +29,8 @@ b_test.set_piece(BISHOP.Bishop(white), 'B', 1)
 b_test.set_piece(BISHOP.Bishop(white), 'G', 8)
 b_test.set_piece(BISHOP.Bishop(black), 'D', 7)
 
-b_true.set_piece(BISHOP.Bishop(white), 'A', 8)
-b_true.set_piece(BISHOP.Bishop(black), 'B', 1)
-b_true.set_piece(BISHOP.Bishop(white), 'H', 7)
-b_true.set_piece(BISHOP.Bishop(black), 'F', 7)
 
 # Test
-
 true_values = []
 test_values = []
 
