@@ -60,10 +60,10 @@ class Chess:
                 # Request move from player
                 if self.white_turn:
                     move = self.white_player.request_move()
-                    valid = self.chess_board.make_move(self.white_player.color, move)
+                    valid = self.chess_board.perform_move(self.white_player.color, move)
                 else:
                     move = self.black_player.request_move()
-                    valid = self.chess_board.make_move(self.black_player.color, move)
+                    valid = self.chess_board.perform_move(self.black_player.color, move)
 
             # After valid move change player's turn
             if self.white_turn:

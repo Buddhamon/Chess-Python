@@ -41,7 +41,7 @@ class Board:
         square = self.board[row][col]
         square.piece = piece
 
-    def make_move(self, color, move):
+    def perform_move(self, color, move):
         """Checks to see if Move is valid and then performs valid Move"""
         try:
             cf1 = move.start_coordinate[0]
