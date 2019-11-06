@@ -20,6 +20,7 @@ class Board:
         self.width = 8
         self.board = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
         self.history = []
+        self.move_count = 1
 
     def _convert_coordinates(self, chess_file, chess_rank):
         """Converts Chess rank and file values to Array row and column values"""
@@ -58,45 +59,54 @@ class Board:
         """Moves a Piece from the starting Chess Position to an end Chess Position"""
         row1, col1 = self._convert_coordinates(cf1, cr1)
         row2, col2 = self._convert_coordinates(cf2, cr2)
-        valid = self.is_valid_move(color, row1, col1, row2, col2)
-        if valid:
+        response = self.is_valid_move(color, row1, col1, row2, col2)
+        if response["valid"]:
             # Add the previous position to history
             self.history.append(self.copy_board()) ######## This will need to be changed later on
 
             # Swap pieces
             start_square = self.board[row1][col1]
             end_square = self.board[row2][col2]
-            end_square.piece = start_square.piece ######## This will need to flag for captured piece
-            end_square.piece.first_move = False
+            end_square.piece = start_square.piece ######## This will need to flag for captured piece when determining draw
+            end_square.piece.turn_last_moved = self.move_count
+            if response["isEnPassant"]:
+                self.board[row1][col2].piece = PIECE.Piece()
             start_square.piece = PIECE.Piece()
-        return valid
+            self.move_count += 1
+        return response["valid"]
 
     def is_valid_move(self, color, row1, col1, row2, col2):
-        """Checks to see if move is valid"""
+        """Checks to see if move is valid and flags if the move is an En Passant or a Castling move;
+        Sends back dictionary"""
+        response = dict()
+        response["valid"] = False
+        response["isCastling"] = False
+        response["isEnPassant"] = False
+
         # Check to see if rows or cols are outside bounds
         if row1 >= self.height or row1 < 0 or row2 >= self.height or row2 < 0:
-            return False
+            return response
         if col1 >= self.width or col1 < 0 or col2 >= self.width or col2 < 0:
-            return False
+            return response
 
         # Check to see if the move is moving to the same place
         if row1 == row2 and col1 == col2:
-            return False
+            return response
 
         start_square_piece = self.board[row1][col1].piece
         end_square_piece = self.board[row2][col2].piece
 
         # Check to see if selected piece is correct color
         if start_square_piece.color != color:
-            return False
+            return response
 
         # Check to see if target square's piece is not the same as the correct color
         if end_square_piece.color == color:
-            return False
+            return response
 
         # Gets all potentially available moves for the piece; checks if piece requires board_state
         if start_square_piece.requires_board_state:
-            moves = start_square_piece.get_valid_moves(row1, col1, self.board)
+            moves = start_square_piece.get_valid_moves(row1, col1, self.board, self.move_count)
         else:
             moves = start_square_piece.get_valid_moves(row1, col1)
 
@@ -105,8 +115,10 @@ class Board:
         attack_coordinate = [row2, col2]
         for move in moves:
             if attack_coordinate == move.attack_coordinate:
-                return self.is_move_blocked(move)
-        return False
+                response["isEnPassant"] = move.isEnPassant
+                response["isCastling"] = move.isCastling
+                response["valid"] = self.is_move_blocked(move)
+        return response
 
     def is_move_blocked(self, move):
         """Checks to see if move path has an obstruction or is blocked"""
@@ -156,7 +168,7 @@ class Board:
         self.set_piece(KING.King(white), 'E', 1)
         self.set_piece(KING.King(black), 'E', 8)
 
-    def print_board(self, move_count=None):
+    def print_board(self):
         """Prints a String visualization of the Board"""
         file_header = '      '
         for i in range(8):
@@ -169,11 +181,11 @@ class Board:
                 square = self.board[r][c]
                 symbol = square.piece.symbol
                 line += ' ' + symbol + ' |'
-            if r != int((self.height-1)/2) or move_count is None:
+            if r != int((self.height-1)/2) or self.move_count is None:
                 print(line)
             else:
                 print(line, end='')
-                print('      Move: ' + str(move_count))
+                print('      Move: ' + str(self.move_count))
             print('    -----------------------------------------')
         print('\n')
 
@@ -188,4 +200,4 @@ if __name__ == '__main__':
     b.set_standard_board()
     b.print_board()
     print(b.move_piece(white, 'A', 2, 'A', 4))
-    b.print_board(1)
+    b.print_board()

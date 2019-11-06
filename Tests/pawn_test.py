@@ -54,16 +54,34 @@ b_test.set_piece(PAWN.Pawn(black), 'G', 3)
 true_values = []
 test_values = []
 
+# print('Starting Position')
+# b_test.print_board()
+
+# print(True)
 test_values.append(b_test.move_piece(white, 'E', 2, 'E', 4))  # Move 1
 true_values.append(True)
+# b_test.print_board()
+
+# print(False)
 test_values.append(b_test.move_piece(white, 'E', 7, 'E', 5))  # Move 2
 true_values.append(False)
+# b_test.print_board()
+
+# print(True)
 test_values.append(b_test.move_piece(black, 'E', 7, 'E', 5))  # Move 3
 true_values.append(True)
+# b_test.print_board()
+
+# print(False)
 test_values.append(b_test.move_piece(white, 'E', 4, 'E', 5))  # Move 4
 true_values.append(False)
+# b_test.print_board()
+
+# print(False)
 test_values.append(b_test.move_piece(black, 'D', 2, 'D', 4))  # Move 5
 true_values.append(False)
+# b_test.print_board()
+
 test_values.append(b_test.move_piece(white, 'D', 2, 'D', 4))  # Move 6
 true_values.append(True)
 test_values.append(b_test.move_piece(black, 'E', 5, 'D', 4))  # Move 7
@@ -103,6 +121,28 @@ true_values.append(True)
 test_values.append(b_test.move_piece(white, 'F', 4, 'F', 6))  # Move 25
 true_values.append(False)
 
+# En Passant Test for White
+test_values.append(b_test.move_piece(white, 'E', 4, 'E', 5))  # Move 26
+true_values.append(True)
+test_values.append(b_test.move_piece(white, 'F', 4, 'F', 5))  # Move 27
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'D', 7, 'D', 5))  # Move 28
+true_values.append(True)
+test_values.append(b_test.move_piece(white, 'E', 5, 'D', 6))  # Move 29 En Passant
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'G', 7, 'G', 5))  # Move 30
+true_values.append(True)
+test_values.append(b_test.move_piece(white, 'F', 5, 'G', 6))  # Move 31 En Passant
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'B', 7, 'B', 5))  # Move 30
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'B', 5, 'B', 4))  # Move 30
+true_values.append(True)
+test_values.append(b_test.move_piece(white, 'A', 2, 'A', 4))  # Move 30
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'B', 4, 'A', 3))  # Move 30
+true_values.append(True)
+
 print('-------------------- TRUE ---------------------\n')
 b_true.print_board()
 print('-------------------- TEST ---------------------\n')
@@ -113,4 +153,4 @@ accurate = True
 for i in range(len(true_values)):
     if true_values[i] != test_values[i]:
         accurate = False
-        print('Error Move', i+1,'--- truth:', true_values[i], '||| test:',test_values[i])
+        print('Error Move', i+1,'--- truth:', true_values[i], '||| test:',test_values[i]['valid'])
