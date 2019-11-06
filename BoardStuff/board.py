@@ -79,7 +79,7 @@ class Board:
         return response["valid"]
 
     def is_valid_move(self, color, row1, col1, row2, col2):
-        """Checks to see if move is valid and flags if the move is an En Passant or a Castling move;
+        """Checks to see if move is valid and flags if the move is an En Passant, a Castling, or Queening move;
         Sends back dictionary"""
         response = dict()
         response["valid"] = False
