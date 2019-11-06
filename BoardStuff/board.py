@@ -62,7 +62,7 @@ class Board:
         response = self.is_valid_move(color, row1, col1, row2, col2)
         if response["valid"]:
             # Add the previous position to history
-            self.history.append(self.copy_board()) ######## This will need to be changed later on
+            self.history.append(self.copy_board()) ######## TODO: This will need to be changed later on
 
             # Swap pieces
             start_square = self.board[row1][col1]
@@ -70,11 +70,20 @@ class Board:
             if response['isQueening']:
                 end_square.piece = QUEEN.Queen(color)
             else:
-                end_square.piece = start_square.piece ######## This will need to flag for captured piece when determining draw
+                end_square.piece = start_square.piece ######## TODO:This will need to flag for captured piece when determining draw
             end_square.piece.turn_last_moved = self.move_count
             if response["isEnPassant"]:
                 self.board[row1][col2].piece = PIECE.Piece()
             start_square.piece = PIECE.Piece()
+            if response["isCastling"]:
+                if col2 - col1 > 0: # King Side Castle
+                    self.board[row2][col2-1].piece = self.board[row2][col2+1].piece
+                    self.board[row2][col2-1].piece.turn_last_moved = self.move_count
+                    self.board[row2][col2+1].piece = PIECE.Piece()
+                else: # Queen Side Castle
+                    self.board[row2][col2+1].piece = self.board[row2][col2-2].piece
+                    self.board[row2][col2+1].piece.turn_last_moved = self.move_count
+                    self.board[row2][col2-2].piece = PIECE.Piece()
             self.move_count += 1
         return response["valid"]
 
