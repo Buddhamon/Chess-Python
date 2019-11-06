@@ -2,6 +2,7 @@
 import sys
 sys.path.append('../Pieces')
 import pawn as PAWN
+import queen as QUEEN
 sys.path.append('../BoardStuff')
 import board as BOARD
 
@@ -14,19 +15,16 @@ b_test = BOARD.Board()
 
 # Set Boards
 #   True Board
-b_true.set_piece(PAWN.Pawn(black), 'B', 7)
 b_true.set_piece(PAWN.Pawn(black), 'C', 7)
-b_true.set_piece(PAWN.Pawn(black), 'D', 7)
 b_true.set_piece(PAWN.Pawn(black), 'F', 7)
-b_true.set_piece(PAWN.Pawn(black), 'G', 7)
 b_true.set_piece(PAWN.Pawn(black), 'H', 7)
+b_true.set_piece(PAWN.Pawn(white), 'D', 6)
+b_true.set_piece(PAWN.Pawn(white), 'G', 6)
 b_true.set_piece(PAWN.Pawn(black), 'A', 5)
-b_true.set_piece(PAWN.Pawn(white), 'E', 4)
-b_true.set_piece(PAWN.Pawn(white), 'F', 4)
 b_true.set_piece(PAWN.Pawn(white), 'H', 4)
+b_true.set_piece(PAWN.Pawn(black), 'A', 3)
 b_true.set_piece(PAWN.Pawn(white), 'F', 3)
-b_true.set_piece(PAWN.Pawn(white), 'A', 2)
-b_true.set_piece(PAWN.Pawn(black), 'B', 2)
+b_true.set_piece(QUEEN.Queen(black), 'B', 1)
 
 #   Test Board
 b_test.set_piece(PAWN.Pawn(white), 'A', 2)
@@ -134,13 +132,15 @@ test_values.append(b_test.move_piece(black, 'G', 7, 'G', 5))  # Move 30
 true_values.append(True)
 test_values.append(b_test.move_piece(white, 'F', 5, 'G', 6))  # Move 31 En Passant
 true_values.append(True)
-test_values.append(b_test.move_piece(black, 'B', 7, 'B', 5))  # Move 30
+test_values.append(b_test.move_piece(black, 'B', 7, 'B', 5))  # Move 32
 true_values.append(True)
-test_values.append(b_test.move_piece(black, 'B', 5, 'B', 4))  # Move 30
+test_values.append(b_test.move_piece(black, 'B', 5, 'B', 4))  # Move 33
 true_values.append(True)
-test_values.append(b_test.move_piece(white, 'A', 2, 'A', 4))  # Move 30
+test_values.append(b_test.move_piece(white, 'A', 2, 'A', 4))  # Move 34
 true_values.append(True)
-test_values.append(b_test.move_piece(black, 'B', 4, 'A', 3))  # Move 30
+test_values.append(b_test.move_piece(black, 'B', 4, 'A', 3))  # Move 35
+true_values.append(True)
+test_values.append(b_test.move_piece(black, 'B', 2, 'B', 1))  # Move 36
 true_values.append(True)
 
 print('-------------------- TRUE ---------------------\n')

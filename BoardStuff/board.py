@@ -67,7 +67,10 @@ class Board:
             # Swap pieces
             start_square = self.board[row1][col1]
             end_square = self.board[row2][col2]
-            end_square.piece = start_square.piece ######## This will need to flag for captured piece when determining draw
+            if response['isQueening']:
+                end_square.piece = QUEEN.Queen(color)
+            else:
+                end_square.piece = start_square.piece ######## This will need to flag for captured piece when determining draw
             end_square.piece.turn_last_moved = self.move_count
             if response["isEnPassant"]:
                 self.board[row1][col2].piece = PIECE.Piece()
@@ -82,6 +85,7 @@ class Board:
         response["valid"] = False
         response["isCastling"] = False
         response["isEnPassant"] = False
+        response["isQueening"] = False
 
         # Check to see if rows or cols are outside bounds
         if row1 >= self.height or row1 < 0 or row2 >= self.height or row2 < 0:
@@ -117,6 +121,7 @@ class Board:
             if attack_coordinate == move.attack_coordinate:
                 response["isEnPassant"] = move.isEnPassant
                 response["isCastling"] = move.isCastling
+                response["isQueening"] = move.isQueening
                 response["valid"] = self.is_move_blocked(move)
         return response
 

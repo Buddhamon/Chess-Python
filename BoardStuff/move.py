@@ -10,7 +10,7 @@ class Move:
         self.pass_coordinates = []
         self.isEnPassant = False
         self.isCastling = False
-        # self.special_move = False
+        self.isQueening =False
 
     @staticmethod
     def generate_moves(origin, routes):
@@ -23,6 +23,14 @@ class Move:
                     coordinate.pop(-1)
                     m = Move(origin, coordinate)
                     m.isEnPassant = True
+                elif coordinate[-1] == 'isCastling':
+                    coordinate.pop(-1)
+                    m = Move(origin, coordinate)
+                    m.isCastling = True
+                elif coordinate[-1] == 'isQueening':
+                    coordinate.pop(-1)
+                    m = Move(origin, coordinate)
+                    m.isQueening = True
                 else:
                     m = Move(origin, coordinate)
                 m.pass_coordinates = pass_coordinates.copy()
@@ -37,6 +45,10 @@ class Move:
         print('\tattack:', self.attack_coordinate)
         if self.isEnPassant:
             print('\tisEnPassant:', self.isEnPassant)
+        if self.isCastling:
+            print('\tisCastling:', self.isCastling)
+        if self.isQueening:
+            print('\tisQueening:', self.isQueening)
 
 if __name__ == '__main__':
     m0 = Move(['E', 2], ['E', 4])
@@ -89,5 +101,17 @@ if __name__ == '__main__':
     ]
     moves4 = Move.generate_moves(origin4, routes_ds4)
     for m in moves4:
+        m.print_move()
+
+    print()
+    print('---------------------------------------------------')
+
+    origin5 = [6, 4]
+    routes_ds5 = [
+        [[7, 4, 'isQueening']],
+         [[7, 5, 'isQueening']]
+    ]
+    moves5 = Move.generate_moves(origin5, routes_ds5)
+    for m in moves5:
         m.print_move()
 

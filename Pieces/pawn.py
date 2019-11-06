@@ -60,6 +60,7 @@ class Pawn(PIECE.Piece):
                     routes.append([[row + pawn_direction, col+1, "isEnPassant"]])
 
         # Non-attacking Moves
+        # Normal Non-attack
         if self.turn_last_moved == 0:
             square = board[row + 2*pawn_direction][col]
             if square.piece.color == 'null':
@@ -67,7 +68,7 @@ class Pawn(PIECE.Piece):
         else:
             square = board[row + pawn_direction][col]
             if square.piece.color == 'null':
-                routes.append([[row + pawn_direction, col], [row + pawn_direction, col]])
+                routes.append([[row + pawn_direction, col]])
 
         for route in reversed(routes):
             r = route[0][0]
@@ -75,6 +76,8 @@ class Pawn(PIECE.Piece):
             if r >= board_height or r < 0 or c >= board_width or c < 0:
                 index = routes.index(route)
                 routes.pop(index)
+            if (self.color == "white" and r == 0) or (self.color == "black" and r == board_height-1):
+                route[0].append("isQueening")
 
         origin = [row, col]
         return MOVE.Move.generate_moves(origin, routes)
@@ -95,4 +98,10 @@ if __name__ == '__main__':
     print('\n---------------------------------------------------')
     print('For:', 1, 6)
     for move in p1.get_valid_moves(1, 6, b, 0):
+        move.print_move()
+
+    print('\n---------------------------------------------------')
+    print('For:', 6, 4)
+    p1.turn_last_moved = 10
+    for move in p1.get_valid_moves(6, 4, b, 0):
         move.print_move()
