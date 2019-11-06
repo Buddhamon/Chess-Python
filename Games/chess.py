@@ -50,8 +50,6 @@ class Chess:
 
     def begin_game(self):
         """Game Loop for Chess Game"""
-
-        move_count = 1
         self.chess_board.print_board()
         while not self.checkmate:
 
@@ -71,8 +69,8 @@ class Chess:
             else:
                 self.white_turn = True
 
-            self.chess_board.print_board(move_count)
-            move_count += 1
+            self.chess_board.print_board()
+            # self.chess_board.move_count # This will get the current move_count
 
         # Return winner
 

@@ -18,7 +18,7 @@ class Pawn(PIECE.Piece):
         requires_board_state = True
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-    def get_valid_moves(self, row, col, board, board_height=8, board_width=8):
+    def get_valid_moves(self, row, col, board, move_count, board_height=8, board_width=8):
 
         routes = []
 
@@ -28,7 +28,8 @@ class Pawn(PIECE.Piece):
         else:
             pawn_direction = 1
 
-        # Attacking Moves ...but not En Passant? Should this occur in chess.py since it is a unique rule?
+        # Attacking Moves
+        # Normal Attack
         if col-1 >= 0:
             square = board[row + pawn_direction][col-1]
             if square.piece.color != 'null' and square.piece.color != self.color:
@@ -37,9 +38,29 @@ class Pawn(PIECE.Piece):
             square = board[row + pawn_direction][col+1]
             if square.piece.color != 'null' and square.piece.color != self.color:
                 routes.append([[row + pawn_direction, col+1]])
+        # En Passant
+        if self.color == 'white' and row == 3: # This is hardcoded to be the 5 rank
+            if col-1 >= 0:
+                square = board[row][col-1]
+                if square.piece.color == 'black' and (square.piece.turn_last_moved == move_count-1):
+                    routes.append([[row + pawn_direction, col-1, "isEnPassant"]])
+            if col+1 < board_width:
+                square = board[row][col+1]
+                if square.piece.color == 'black' and (square.piece.turn_last_moved == move_count-1):
+                    routes.append([[row + pawn_direction, col+1, "isEnPassant"]])
+
+        if self.color == 'black' and row == 4: # This is hardcoded to be the 4 rank
+            if col-1 >= 0:
+                square = board[row][col-1]
+                if square.piece.color == 'white' and (square.piece.turn_last_moved == move_count-1):
+                    routes.append([[row + pawn_direction, col-1, "isEnPassant"]])
+            if col+1 < board_width:
+                square = board[row][col+1]
+                if square.piece.color == 'white' and (square.piece.turn_last_moved == move_count-1):
+                    routes.append([[row + pawn_direction, col+1, "isEnPassant"]])
 
         # Non-attacking Moves
-        if self.first_move:
+        if self.turn_last_moved == 0:
             square = board[row + 2*pawn_direction][col]
             if square.piece.color == 'null':
                 routes.append([[row + pawn_direction, col], [row + 2*pawn_direction, col]])
@@ -68,10 +89,10 @@ if __name__ == '__main__':
 
     print('\n---------------------------------------------------')
     print('For:', 1, 1)
-    for move in p1.get_valid_moves(1, 1, b):
+    for move in p1.get_valid_moves(1, 1, b, 0):
         move.print_move()
 
     print('\n---------------------------------------------------')
     print('For:', 1, 6)
-    for move in p1.get_valid_moves(1, 6, b):
+    for move in p1.get_valid_moves(1, 6, b, 0):
         move.print_move()

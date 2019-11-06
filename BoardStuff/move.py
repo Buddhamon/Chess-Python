@@ -8,6 +8,8 @@ class Move:
         self.start_coordinate = starting
         self.attack_coordinate = attacking
         self.pass_coordinates = []
+        self.isEnPassant = False
+        self.isCastling = False
         # self.special_move = False
 
     @staticmethod
@@ -17,7 +19,12 @@ class Move:
         for route in routes:
             pass_coordinates = []
             for coordinate in route:
-                m = Move(origin, coordinate)
+                if coordinate[-1] == 'isEnPassant':
+                    coordinate.pop(-1)
+                    m = Move(origin, coordinate)
+                    m.isEnPassant = True
+                else:
+                    m = Move(origin, coordinate)
                 m.pass_coordinates = pass_coordinates.copy()
                 moves.append(m)
                 pass_coordinates.append(coordinate)
@@ -28,6 +35,8 @@ class Move:
         print('\tstart:', self.start_coordinate)
         print('\tpass:', self.pass_coordinates)
         print('\tattack:', self.attack_coordinate)
+        if self.isEnPassant:
+            print('\tisEnPassant:', self.isEnPassant)
 
 if __name__ == '__main__':
     m0 = Move(['E', 2], ['E', 4])
@@ -69,3 +78,16 @@ if __name__ == '__main__':
     moves3 = Move.generate_moves(origin3, routes_ds3)
     for m in moves3:
         m.print_move()
+
+    print()
+    print('---------------------------------------------------')
+
+    origin4 = [3, 4]
+    routes_ds4 = [
+        [[2, 3, 'isEnPassant']],
+         [[2, 4]]
+    ]
+    moves4 = Move.generate_moves(origin4, routes_ds4)
+    for m in moves4:
+        m.print_move()
+
