@@ -18,7 +18,7 @@ class Board:
         self.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         self.height = 8
         self.width = 8
-        self.board = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
+        self.grid = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
         self.history = []
         self.move_count = 1
 
@@ -29,21 +29,21 @@ class Board:
         return row, col
 
     def copy_board(self):
-        """Creates and returns a copy of the board; called after every move"""
+        """Creates and returns a copy of the board; called after every move to record board history"""
         b = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
         for r in range(self.width):
             for c in range(self.height):
-                b[r][c] = self.board[r][c].copy()
+                b[r][c] = self.grid[r][c].copy()
         return b
 
     def set_piece(self, piece, chess_file, chess_rank):
         """Sets a piece on the Board"""
         row, col = self._convert_coordinates(chess_file, chess_rank)
-        square = self.board[row][col]
+        square = self.grid[row][col]
         square.piece = piece
 
-    def perform_move(self, color, move):
-        """Checks to see if Move is valid and then performs valid Move"""
+    def make_move(self, color, move):
+        """Checks to see if Move is valid and then performs valid Move by calling move_piece"""
         try:
             cf1 = move.start_coordinate[0]
             cr1 = move.start_coordinate[1]
@@ -65,25 +65,25 @@ class Board:
             self.history.append(self.copy_board()) ######## TODO: This will need to be changed later on
 
             # Swap pieces
-            start_square = self.board[row1][col1]
-            end_square = self.board[row2][col2]
+            start_square = self.grid[row1][col1]
+            end_square = self.grid[row2][col2]
             if response['isQueening']:
                 end_square.piece = QUEEN.Queen(color)
             else:
                 end_square.piece = start_square.piece ######## TODO:This will need to flag for captured piece when determining draw
             end_square.piece.turn_last_moved = self.move_count
             if response["isEnPassant"]:
-                self.board[row1][col2].piece = PIECE.Piece()
+                self.grid[row1][col2].piece = PIECE.Piece()
             start_square.piece = PIECE.Piece()
             if response["isCastling"]:
                 if col2 - col1 > 0: # King Side Castle
-                    self.board[row2][col2-1].piece = self.board[row2][col2+1].piece
-                    self.board[row2][col2-1].piece.turn_last_moved = self.move_count
-                    self.board[row2][col2+1].piece = PIECE.Piece()
+                    self.grid[row2][col2 - 1].piece = self.grid[row2][col2 + 1].piece
+                    self.grid[row2][col2 - 1].piece.turn_last_moved = self.move_count
+                    self.grid[row2][col2 + 1].piece = PIECE.Piece()
                 else: # Queen Side Castle
-                    self.board[row2][col2+1].piece = self.board[row2][col2-2].piece
-                    self.board[row2][col2+1].piece.turn_last_moved = self.move_count
-                    self.board[row2][col2-2].piece = PIECE.Piece()
+                    self.grid[row2][col2 + 1].piece = self.grid[row2][col2 - 2].piece
+                    self.grid[row2][col2 + 1].piece.turn_last_moved = self.move_count
+                    self.grid[row2][col2 - 2].piece = PIECE.Piece()
             self.move_count += 1
         return response["valid"]
 
@@ -106,8 +106,8 @@ class Board:
         if row1 == row2 and col1 == col2:
             return response
 
-        start_square_piece = self.board[row1][col1].piece
-        end_square_piece = self.board[row2][col2].piece
+        start_square_piece = self.grid[row1][col1].piece
+        end_square_piece = self.grid[row2][col2].piece
 
         # Check to see if selected piece is correct color
         if start_square_piece.color != color:
@@ -119,7 +119,7 @@ class Board:
 
         # Gets all potentially available moves for the piece; checks if piece requires board_state
         if start_square_piece.requires_board_state:
-            moves = start_square_piece.get_valid_moves(row1, col1, self.board, self.move_count)
+            moves = start_square_piece.get_valid_moves(row1, col1, self.grid, self.move_count)
         else:
             moves = start_square_piece.get_valid_moves(row1, col1)
 
@@ -140,7 +140,7 @@ class Board:
         for coordinate in move.pass_coordinates:
             r = coordinate[0]
             c = coordinate[1]
-            pass_square = self.board[r][c]
+            pass_square = self.grid[r][c]
             if pass_square.has_piece():
                 valid = False
         return valid
@@ -189,10 +189,10 @@ class Board:
             file_header += self.alphabet[i] + '    '
         print(file_header)
         print('    -----------------------------------------')
-        for r in range(len(self.board)):
-            line = ' ' + str(len(self.board)-r) + '  |'
-            for c in range(len(self.board[r])):
-                square = self.board[r][c]
+        for r in range(len(self.grid)):
+            line = ' ' + str(len(self.grid) - r) + '  |'
+            for c in range(len(self.grid[r])):
+                square = self.grid[r][c]
                 symbol = square.piece.symbol
                 line += ' ' + symbol + ' |'
             if r != int((self.height-1)/2) or self.move_count is None:
