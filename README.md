@@ -1,6 +1,6 @@
 # Chess-Python
 
-A running repository of Chess in Python, currently the product is incomplete. Here is a list of things todo.
+A running repository of Chess-Python, currently the product is incomplete. Here is a list of things todo.
 
 ### Todo
 * Win Conditions
@@ -14,7 +14,13 @@ A running repository of Chess in Python, currently the product is incomplete. He
 
 * AI
     * Algorithmic AI
+        * Opening Tables
+        * Mini-Maxing
+        * Cost Board
+        * Closing Tables
     * CNN AI
+        * Gather Data
+        * Prepare Trainable Classifier
 
 * UI
     * Board
