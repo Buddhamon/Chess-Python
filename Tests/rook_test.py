@@ -18,6 +18,7 @@ b_true.set_piece(ROOK.Rook(white), 'E', 7)
 b_true.set_piece(ROOK.Rook(white), 'H', 8)
 
 #   Test Board
+b_test.has_king = False
 b_test.set_piece(ROOK.Rook(white), 'A', 1)
 b_test.set_piece(ROOK.Rook(black), 'H', 1)
 b_test.set_piece(ROOK.Rook(black), 'A', 8)

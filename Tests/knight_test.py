@@ -32,6 +32,7 @@ b_true.set_piece(KNIGHT.Knight(white), 'F', 4)
 b_true.set_piece(KNIGHT.Knight(white), 'C', 4)
 
 #   Test Board
+b_test.has_king = False
 b_test.set_piece(KNIGHT.Knight(black), 'A', 8)
 b_test.set_piece(KNIGHT.Knight(black), 'H', 1)
 b_test.set_piece(KNIGHT.Knight(white), 'E', 5)  # Selected Knight

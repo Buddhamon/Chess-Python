@@ -27,6 +27,7 @@ b_true.set_piece(PAWN.Pawn(white), 'F', 3)
 b_true.set_piece(QUEEN.Queen(black), 'B', 1)
 
 #   Test Board
+b_test.has_king = False
 b_test.set_piece(PAWN.Pawn(white), 'A', 2)
 b_test.set_piece(PAWN.Pawn(white), 'B', 2)
 b_test.set_piece(PAWN.Pawn(white), 'C', 2)

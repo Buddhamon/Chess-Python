@@ -4,7 +4,7 @@ A running repository of Chess-Python, currently the product is incomplete. Here 
 
 ### Todo
 * Win Conditions
-    * Check
+    * ~~Check~~
     * Checkmate
 
 * Draw Conditions

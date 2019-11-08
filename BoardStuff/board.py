@@ -23,6 +23,7 @@ class Board:
 
         # Todo: Move these variables into Chess Class
         self.move_count = 1
+        self.has_king = True
         self.white_king_position = [7, 4]
         self.black_king_position = [0, 4]
 
@@ -72,21 +73,22 @@ class Board:
             end_square = self.grid[row2][col2]
 
             # Are we in Check?
-            check = False
-            if start_square.piece.name == 'King':
-                check = self.is_position_in_check(color, row2, col2)
-                if not check:
-                    if color == "white":
-                        self.white_king_position = [row2, col2]
-                    else:
-                        self.black_king_position = [row2, col2]
-            else:
-                if color == "white":
-                    check = self.is_position_in_check(color, self.white_king_position[0], self.white_king_position[1])
+            if self.has_king:
+                check = False
+                if start_square.piece.name == 'King':
+                    check = self.is_position_in_check(color, row2, col2)
+                    if not check:
+                        if color == "white":
+                            self.white_king_position = [row2, col2]
+                        else:
+                            self.black_king_position = [row2, col2]
                 else:
-                    check = self.is_position_in_check(color, self.black_king_position[0], self.black_king_position[1])
-            if check:
-                return False
+                    if color == "white":
+                        check = self.is_position_in_check(color, self.white_king_position[0], self.white_king_position[1])
+                    else:
+                        check = self.is_position_in_check(color, self.black_king_position[0], self.black_king_position[1])
+                if check:
+                    return False
 
 
             # Add the previous position to history
@@ -159,13 +161,13 @@ class Board:
         return response
 
     def get_valid_moves(self, moves):
-        """Gets valid moves from moves data-structure by pruning blocked moves"""
+        """Gets valid moves from moves data-structure by pruning blocked moves and moves to a position of same color"""
         for move in reversed(moves):
-            origin_square = self.grid[move.start_coordinate[0]][move.start_coordinate[1]]
+            start_square = self.grid[move.start_coordinate[0]][move.start_coordinate[1]]
             end_square = self.grid[move.attack_coordinate[0]][move.attack_coordinate[1]]
 
             # Check if the origin and end are the same color piece
-            if origin_square.piece.color == end_square.piece.color:
+            if start_square.piece.color == end_square.piece.color:
                 index = moves.index(move)
                 moves.pop(index)
 
@@ -277,4 +279,4 @@ if __name__ == '__main__':
     b.print_board()
 
 
-    print("Pawn is in Check:", b.is_position_in_check(4, 0))
+    print("Pawn is in Check:", b.is_position_in_check(white, 4, 0))
