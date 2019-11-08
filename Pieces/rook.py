@@ -16,7 +16,7 @@ class Rook(PIECE.Piece):
         requires_board_state = False
         super().declare_variables(color, name, symbol_char, value, requires_board_state)
 
-    def get_valid_moves(self, row, col, board_height=8, board_width=8):
+    def get_potential_moves(self, row, col, board_height=8, board_width=8):
 
         routes = []
 
@@ -48,21 +48,21 @@ if __name__ == '__main__':
 
     print('\n---------------------------------------------------')
     print('For:', 0, 0)
-    for move in p.get_valid_moves(0, 0):
+    for move in p.get_potential_moves(0, 0):
         move.print_move()
 
     print('\n---------------------------------------------------')
     print('For:', 1, 1)
-    for move in p.get_valid_moves(1, 1):
+    for move in p.get_potential_moves(1, 1):
         move.print_move()
 
     print('\n---------------------------------------------------')
     print('For:', 4, 4)
-    for move in p.get_valid_moves(4, 4):
+    for move in p.get_potential_moves(4, 4):
         move.print_move()
 
     print('\n---------------------------------------------------')
     print('For:', 8, 8)
-    for move in p.get_valid_moves(7, 7):
+    for move in p.get_potential_moves(7, 7):
         move.print_move()
 

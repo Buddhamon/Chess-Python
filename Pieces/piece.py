@@ -35,8 +35,8 @@ class Piece():
         p.turn_last_moved = self.turn_last_moved
         return p
 
-    def get_valid_moves(self, row, col, board_height=8, board_width=8):
-        pass
+    def get_potential_moves(self, row, col, board_height=8, board_width=8):
+        return []
 
     def update_turn_last_moved(self, turn_count):
         self.turn_last_moved = turn_count
