@@ -131,11 +131,11 @@ b_test.set_piece(ROOK.Rook(black), 'A', 8)
 b_test.set_piece(ROOK.Rook(white), 'H', 1)
 b_test.set_piece(ROOK.Rook(white), 'A', 1)
 # white king has already moved
-b_test.board[7][4].piece.turn_last_moved = 10
+b_test.grid[7][4].piece.turn_last_moved = 10
 # black rooks have already moved
-b_test.board[0][0].piece.turn_last_moved = 10
+b_test.grid[0][0].piece.turn_last_moved = 10
 # white king has already moved
-b_test.board[0][7].piece.turn_last_moved = 10
+b_test.grid[0][7].piece.turn_last_moved = 10
 
 # Test
 true_values = []
@@ -190,7 +190,7 @@ b_test.set_piece(KING.King(black), 'E', 8)
 b_test.set_piece(ROOK.Rook(black), 'H', 8)
 b_test.set_piece(ROOK.Rook(black), 'A', 8)
 # white king has already moved
-b_test.board[7][3].piece.turn_last_moved = 10
+b_test.grid[7][3].piece.turn_last_moved = 10
 
 # Test
 true_values = []

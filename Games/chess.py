@@ -46,6 +46,7 @@ class Chess:
         # Redeclare players
         # self.white_player = HUMAN.Human('white')
         self.white_player = AI_RANDOM.AI_Random('white')
+        # self.black_player = HUMAN.Human('black')
         self.black_player = AI_RANDOM.AI_Random('black')
 
     def begin_game(self):
