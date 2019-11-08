@@ -3,6 +3,21 @@
 A running repository of Chess-Python, currently the product is incomplete. Here is a list of things todo.
 
 ### Todo
+* Core Functionality
+    * ~~Object Oriented Layout~~
+    * ~~Pieces and Piece Moves~~
+        * ~~Pawn~~
+        * ~~Rook~~
+        * ~~Knight~~
+        * ~~Bishop~~
+        * ~~Queen~~
+        * ~~King~~
+
+* ~~Additional Moves~~
+    * ~~En Passant~~
+    * ~~Queening~~
+    * ~~Castling~~
+    
 * Win Conditions
     * ~~Check~~
     * Checkmate
