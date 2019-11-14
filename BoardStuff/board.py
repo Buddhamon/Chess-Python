@@ -18,7 +18,7 @@ class Board:
         self.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         self.height = 8
         self.width = 8
-        self.grid = [[SQUARE.Square() for c in range(self.height)] for r in range(self.width)]
+        self.grid = [[SQUARE.Square() for c in range(self.width)] for r in range(self.height)]
         self.history = []
 
         # Todo: Move these variables into Chess Class
