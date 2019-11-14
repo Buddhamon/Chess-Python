@@ -229,7 +229,7 @@ class Board:
         self.set_piece(KNIGHT.Knight(black), 'B', 8)
         self.set_piece(KNIGHT.Knight(black), 'G', 8)
 
-        # Knights
+        # Bishops
         self.set_piece(BISHOP.Bishop(white), 'C', 1)
         self.set_piece(BISHOP.Bishop(white), 'F', 1)
         self.set_piece(BISHOP.Bishop(black), 'C', 8)
