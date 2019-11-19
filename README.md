@@ -18,7 +18,7 @@ A running repository of Chess-Python, currently the product is incomplete. Here 
     * ~~Queening~~
     * ~~Castling~~
 
-* Win Conditions
+* ~~Win Conditions~~
     * ~~Check~~
     * ~~Checkmate~~
 
