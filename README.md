@@ -20,12 +20,12 @@ A running repository of Chess-Python, currently the product is incomplete. Here 
 
 * Win Conditions
     * ~~Check~~
-    * Checkmate
+    * ~~Checkmate~~
 
 * Draw Conditions
-    * Stalemate
+    * ~~Stalemate~~
     * Threefold Repetition
-    * Fifty-Move Rule
+    * ~~Fifty-Move Rule~~
 
 * AI
     * Algorithmic AI
@@ -33,11 +33,13 @@ A running repository of Chess-Python, currently the product is incomplete. Here 
         * Mini-Maxing
         * Cost Board
         * Closing Tables
-    * CNN AI
-        * Gather Data
-        * Prepare Trainable Classifier
+    * CNN1 AI
+        * ~~Gather Data~~
+        * Then Gather More Data
+        * ~~Prepare Trainable Classifier~~
+        * ~~Output Best Move~~
 
-* UI
+* UI (An instance of UI for iOS has been created using this repository at https://github.com/SMU-Projects/CSE7323-Lab5)
     * Board
     * Mouse Select
     * Display Available Moves

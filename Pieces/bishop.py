@@ -2,22 +2,33 @@
 import sys
 import piece as PIECE
 sys.path.append('../BoardStuff')
-import move as MOVE
+import board as BOARD
 
 
 # Bishop Object
 class Bishop(PIECE.Piece):
 
-    # Define Class Variables
     def __init__(self, color):
-        name = 'Bishop'
-        symbol_char = 'b'
-        value = 3
-        requires_board_state = False
-        super().declare_variables(color, name, symbol_char, value, requires_board_state)
+        """
+        Define Bishop Class Variables
+        """
+        super()
+        self._declare_variables(color=color, name='Bishop', symbol_char='b', value=3.5)
+
+
 
     @staticmethod
-    def _diagonal_move(r, c, up, left, board_height=8, board_width=8):
+    def _get_diagonal_route(r, c, up, left, board_height=8, board_width=8):
+        """
+        Gets the specified diagonal route stemming from a given row or col
+        :param r: row position
+        :param c: col position
+        :param up: bool Whether if up or down
+        :param left: bool Whether if left or right
+        :param board_height: height of board
+        :param board_width: width of board
+        :return: route of diagonal move
+        """
         route = []
         if up:
             r_direction = -1
@@ -35,53 +46,87 @@ class Bishop(PIECE.Piece):
             c += c_direction
         return route
 
-    def get_potential_moves(self, row, col, board_height=8, board_width=8):
 
-        routes = []
 
-        # Up Left
-        routes.append(self._diagonal_move(row, col, up=True, left=True))
 
-        # Up Right
-        routes.append(self._diagonal_move(row, col, up=True, left=False))
+    def get_available_coordinates(self, board):
+        """
+        Gets the available coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of available coordinates/squares
+        """
+        available_coordinates = self.get_attacking_coordinates(board)
+        available_coordinates = self._remove_coordinates_with_given_color(self.color, board, available_coordinates)
+        return available_coordinates
 
-        # Down Right
-        routes.append(self._diagonal_move(row, col, up=False, left=False))
 
-        # Down Left
-        routes.append(self._diagonal_move(row, col, up=False, left=True))
 
-        for route in reversed(routes):
-            if len(route) == 0:
-                index = routes.index(route)
-                routes.pop(index)
+    def get_attacking_coordinates(self, board):
+        """
+        Gets the attacking coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of attacking coordinates/squares
+        """
+        attacking_coordinates = []
 
-        origin = [row, col]
-        return MOVE.Move.generate_moves(origin, routes)
+        # Move Bishop Up Left
+        up_left = list()
+        up_left.extend(self._get_diagonal_route(self.row, self.col, up=True, left=True))
+        up_left = self._remove_blocked_attacking_coordinates(board, up_left)
+        attacking_coordinates.extend(up_left)
+
+        # Move Bishop Up Right
+        up_right = list()
+        up_right.extend(self._get_diagonal_route(self.row, self.col, up=True, left=False))
+        up_right = self._remove_blocked_attacking_coordinates(board, up_right)
+        attacking_coordinates.extend(up_right)
+
+        # Move Bishop Down Right
+        down_right = list()
+        down_right.extend(self._get_diagonal_route(self.row, self.col, up=False, left=False))
+        down_right = self._remove_blocked_attacking_coordinates(board, down_right)
+        attacking_coordinates.extend(down_right)
+
+        # Move Bishop Down Left
+        down_left = list()
+        down_left.extend(self._get_diagonal_route(self.row, self.col, up=False, left=True))
+        down_left = self._remove_blocked_attacking_coordinates(board, down_left)
+        attacking_coordinates.extend(down_left)
+
+        return attacking_coordinates
+
 
 
 # Bishop Test
 if __name__ == '__main__':
     p = Bishop('black')
     print(p.color, p.name, p.value)
+    b = BOARD.Board()
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 0, 0, debug=True)
+    b.print_board(debug=True)
     print('For:', 0, 0)
-    for move in p.get_potential_moves(0, 0):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 1, 1, debug=True)
+    b.print_board(debug=True)
     print('For:', 1, 1)
-    for move in p.get_potential_moves(1, 1):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 4, 4, debug=True)
+    b.print_board(debug=True)
     print('For:', 4, 4)
-    for move in p.get_potential_moves(4, 4):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
-    print('For:', 8, 8)
-    for move in p.get_potential_moves(7, 7):
-        move.print_move()
-
+    b.set_piece(p, 7, 7, debug=True)
+    b.print_board(debug=True)
+    print('For:', 7, 7)
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)

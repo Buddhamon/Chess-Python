@@ -1,19 +1,20 @@
 # Imports
 import sys
-
 import player as PLAYER
-
-sys.path.append('../BoardStuff')
-import move as MOVE
 
 class Human(PLAYER.Player):
 
     def __init__(self, color):
-        """Initialization for Human Object; This Player class will serve as a Human Player"""
+        """
+        Initialization for Human Object; This Player class will serve as a Human Player
+        """
         super().__init__(color)
 
-    def request_move(self):
-        """Asks the player what move to make, Player submits possible move to Chess game"""
+    def request_move(self, board):
+        """
+        Asks the player what move to make, Player submits possible move to Chess game
+        :return: a starting location and ending location for chess move
+        """
         valid = False
         while not valid:
             try:
@@ -25,9 +26,9 @@ class Human(PLAYER.Player):
                 cf2 = end[0].upper()
                 cr2 = int(end[1])
 
-                human_move = MOVE.Move(starting=[cf1, cr1], attacking=[cf2, cr2])
+                # Todo: Verify Input
 
-                return human_move
+                return cf1, cr1, cf2, cr2
             except:
                 # Invalid Entry
                 pass

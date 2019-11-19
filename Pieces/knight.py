@@ -2,66 +2,86 @@
 import sys
 import piece as PIECE
 sys.path.append('../BoardStuff')
-import move as MOVE
+import board as BOARD
 
 
 # Knight Object
 class Knight(PIECE.Piece):
 
-    # Define Class Variables
     def __init__(self, color):
-        name = 'Knight'
-        symbol_char = 'n'
-        value = 3
-        requires_board_state = False
-        super().declare_variables(color, name, symbol_char, value, requires_board_state)
+        """
+        Define Knight Class Variables
+        """
+        super()
+        self._declare_variables(color=color, name='Knight', symbol_char='n', value=3)
 
-    def get_potential_moves(self, row, col, board_height=8, board_width=8):
 
-        routes = []
 
-        routes.append([[row-1, col-2]])  # 1
-        routes.append([[row-2, col-1]])  # 2
-        routes.append([[row-2, col+1]])  # 3
-        routes.append([[row-1, col+2]])  # 4
-        routes.append([[row+1, col+2]])  # 5
-        routes.append([[row+2, col+1]])  # 6
-        routes.append([[row+2, col-1]])  # 7
-        routes.append([[row+1, col-2]])  # 8
+    def get_available_coordinates(self, board):
+        """
+        Gets the available coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of available coordinates/squares
+        """
+        available_coordinates = self.get_attacking_coordinates(board)
+        available_coordinates = self._remove_coordinates_with_given_color(self.color, board, available_coordinates)
+        return available_coordinates
 
-        for route in reversed(routes):
-            r = route[0][0]
-            c = route[0][1]
-            if r >= board_height or r < 0 or c >= board_width or c < 0:
-                index = routes.index(route)
-                routes.pop(index)
 
-        origin = [row, col]
-        return MOVE.Move.generate_moves(origin, routes)
+
+    def get_attacking_coordinates(self, board):
+        """
+        Gets the attacking coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of attacking coordinates/squares
+        """
+        attacking_coordinates = []
+        attacking_coordinates.append([self.row-1, self.col-2])  # 1
+        attacking_coordinates.append([self.row-2, self.col-1])  # 2
+        attacking_coordinates.append([self.row-2, self.col+1])  # 3
+        attacking_coordinates.append([self.row-1, self.col+2])  # 4
+        attacking_coordinates.append([self.row+1, self.col+2])  # 5
+        attacking_coordinates.append([self.row+2, self.col+1])  # 6
+        attacking_coordinates.append([self.row+2, self.col-1])  # 7
+        attacking_coordinates.append([self.row+1, self.col-2])  # 8
+
+        attacking_coordinates = self._remove_out_of_range_coordinates(board, attacking_coordinates)
+
+        return attacking_coordinates
+
 
 
 # Knight Test
 if __name__ == '__main__':
     p = Knight('black')
     print(p.color, p.name, p.value)
+    b = BOARD.Board()
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 0, 0, debug=True)
+    b.print_board(debug=True)
     print('For:', 0, 0)
-    for move in p.get_potential_moves(0, 0):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 1, 1, debug=True)
+    b.print_board(debug=True)
     print('For:', 1, 1)
-    for move in p.get_potential_moves(1, 1):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 4, 4, debug=True)
+    b.print_board(debug=True)
     print('For:', 4, 4)
-    for move in p.get_potential_moves(4, 4):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
-    print('For:', 8, 8)
-    for move in p.get_potential_moves(7, 7):
-        move.print_move()
+    b.set_piece(p, 7, 7, debug=True)
+    b.print_board(debug=True)
+    print('For:', 7, 7)
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 

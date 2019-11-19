@@ -2,67 +2,103 @@
 import sys
 import piece as PIECE
 sys.path.append('../BoardStuff')
-import move as MOVE
+import board as BOARD
 
 
 # Rook Object
 class Rook(PIECE.Piece):
 
-    # Define Class Variables
     def __init__(self, color):
-        name = 'Rook'
-        symbol_char = 'r'
-        value = 5
-        requires_board_state = False
-        super().declare_variables(color, name, symbol_char, value, requires_board_state)
+        """
+        Define Rook Class Variables
+        """
+        super()
+        self._declare_variables(color=color, name='Rook', symbol_char='r', value=5)
 
-    def get_potential_moves(self, row, col, board_height=8, board_width=8):
 
-        routes = []
 
-        # Up
-        routes.append([[row - (i+1), col] for i in range(row)])
+    def get_available_coordinates(self, board):
+        """
+        Gets the available coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of available coordinates/squares
+        """
+        available_coordinates = self.get_attacking_coordinates(board)
+        available_coordinates = self._remove_coordinates_with_given_color(self.color, board, available_coordinates)
+        return available_coordinates
 
-        # Down
-        routes.append([[row + (i+1), col] for i in range(board_height-(row+1))])
 
-        # Left
-        routes.append([[row, col - (i+1)] for i in range(col)])
 
-        # Right
-        routes.append([[row, col + (i+1)] for i in range(board_width-(col+1))])
+    def get_attacking_coordinates(self, board):
+        """
+        Gets the attacking coordinates/squares for this piece
+        :param board: The current state of the board
+        :return: A list of attacking coordinates/squares
+        """
+        attacking_coordinates = []
 
-        for route in reversed(routes):
-            if len(route) == 0:
-                index = routes.index(route)
-                routes.pop(index)
+        # Move Rook Up
+        up = list()
+        for i in range(self.row):
+            up.append([self.row - (i+1), self.col])
+        up = self._remove_blocked_attacking_coordinates(board, up)
+        attacking_coordinates.extend(up)
 
-        origin = [row, col]
-        return MOVE.Move.generate_moves(origin, routes)
+        # Move Rook Down
+        down = list()
+        for i in range(board.height-(self.row+1)):
+            down.append([self.row + (i+1), self.col])
+        down = self._remove_blocked_attacking_coordinates(board, down)
+        attacking_coordinates.extend(down)
+
+        # Move Rook Left
+        left = list()
+        for i in range(self.col):
+            left.append([self.row, self.col - (i+1)])
+        left = self._remove_blocked_attacking_coordinates(board, left)
+        attacking_coordinates.extend(left)
+
+        # Move Rook Right
+        right = list()
+        for i in range(board.width-(self.col+1)):
+            right.append([self.row, self.col + (i+1)])
+        right = self._remove_blocked_attacking_coordinates(board, right)
+        attacking_coordinates.extend(right)
+
+        return attacking_coordinates
+
 
 
 # Rook Test
 if __name__ == '__main__':
     p = Rook('black')
     print(p.color, p.name, p.value)
+    b = BOARD.Board()
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 0, 0, debug=True)
+    b.print_board(debug=True)
     print('For:', 0, 0)
-    for move in p.get_potential_moves(0, 0):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 1, 1, debug=True)
+    b.print_board(debug=True)
     print('For:', 1, 1)
-    for move in p.get_potential_moves(1, 1):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
+    b.set_piece(p, 4, 4, debug=True)
+    b.print_board(debug=True)
     print('For:', 4, 4)
-    for move in p.get_potential_moves(4, 4):
-        move.print_move()
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
 
     print('\n---------------------------------------------------')
-    print('For:', 8, 8)
-    for move in p.get_potential_moves(7, 7):
-        move.print_move()
-
+    b.set_piece(p, 7, 7, debug=True)
+    b.print_board(debug=True)
+    print('For:', 7, 7)
+    for available_coordinates in p.get_available_coordinates(b):
+        print(available_coordinates)
