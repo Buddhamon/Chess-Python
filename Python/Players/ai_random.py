@@ -1,5 +1,4 @@
 # Imports
-import sys
 import random
 import player as PLAYER
 

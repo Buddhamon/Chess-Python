@@ -1,15 +1,15 @@
 # Imports
-import sys
 import random
 import player as PLAYER
 
-class AI_Random(PLAYER.Player):
+class AI_Algo1(PLAYER.Player):
 
     def __init__(self, color):
         """
         Initialization for Random AI Object
         """
         super().__init__(color)
+        self.depth = 2
 
     def request_move(self, board):
         """
@@ -24,4 +24,17 @@ class AI_Random(PLAYER.Player):
         return cf1, cr1, cf2, cr2
 
     def get_best_move(self, board):
-        pass
+
+        # For every depth
+            # Get every move available
+            # Evaluate every move
+            # Evaluate enemy's available moves
+            # if deeper... Proceed in depth
+            # else... Return evaluation
+
+        row1 = random.randint(1, 8)
+        col1 = random.randint(1, 8)
+        row2 = random.randint(1, 8)
+        col2 = random.randint(1, 8)
+
+        return [row1, col1], [row2, col2]

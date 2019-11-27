@@ -364,6 +364,8 @@ class Board:
 
         # insufficient_material = False
         # TODO: Check for insufficient material
+        if len(self.white_pieces) == 1 and len(self.black_pieces) == 1:
+            return True
 
         # fifty_move_draw = False
         if self.turn_since_capture_or_pawn_move >= 100:

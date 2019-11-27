@@ -1,5 +1,4 @@
 # Imports
-import sys
 import player as PLAYER
 
 class Human(PLAYER.Player):

@@ -24,8 +24,10 @@ A running repository of Chess-Python, currently the product is incomplete. Here 
 
 * Draw Conditions
     * ~~Stalemate~~
-    * Threefold Repetition
     * ~~Fifty-Move Rule~~
+    * Threefold Repetition
+    * Insufficient Material
+    
 
 * AI
     * Algorithmic AI

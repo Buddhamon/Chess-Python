@@ -4,6 +4,7 @@ import sys
 sys.path.append('../Players')
 import human as HUMAN
 import ai_random as AI_RANDOM
+import ai_algo1 as AI_ALGO1
 import ai_cnn1 as AI_CNN1
 import ai_mlp1 as AI_MLP1
 import ai_mlp2 as AI_MLP2
@@ -50,13 +51,15 @@ class Chess:
         """
         # Redeclare players
         # self.white_player = HUMAN.Human('white')
-        self.white_player = AI_RANDOM.AI_Random('white')
+        # self.white_player = AI_RANDOM.AI_Random('white')
+        self.white_player = AI_ALGO1.AI_Algo1('white')
         # self.white_player = AI_CNN1.AI_Cnn1('white', '../Models/cnn3.h5')
         # self.white_player = AI_MLP1.AI_Mlp1('white', '../Models/mlp1_1.h5')
         # self.white_player = AI_MLP2.AI_Mlp2('white', '../Models/mlp2_1.h5')
         # self.white_player = AI_MLP3.AI_Mlp3('white', '../Models/mlp3_1.h5')
         # self.black_player = HUMAN.Human('black')
         self.black_player = AI_RANDOM.AI_Random('black')
+        # self.black_player = AI_ALGO1.AI_Algo1('black')
         # self.black_player = AI_CNN1.AI_Cnn1('black', '../Models/cnn3.h5')
         # self.black_player = AI_MLP1.AI_Mlp1('black', '../Models/mlp1_2.h5')
         # self.black_player = AI_MLP2.AI_Mlp2('black', '../Models/mlp2_1.h5')
